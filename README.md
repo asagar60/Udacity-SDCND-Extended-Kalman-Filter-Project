@@ -9,6 +9,7 @@ In this project we will utilize a Kalman filter to estimate the state of a movin
 
 Overview
 -------
+In this project, we implement the extended Kalman filter in C++. The simulator provides lidar and radar measurements detecting a bicycle that travels around the vehicle. We will use a Kalman filter, lidar measurements and radar measurements to track the bicycle's position and velocity.
 
 **What is Kalman Filter and Extended Kalman Filter ?**
 
@@ -30,8 +31,7 @@ Extended Kalman Filter makes the non linear function into linear function using 
 ![Dataset_1_output](./readme_data/Dataset_1.gif)
 ![Dataset_2_output](./readme_data/Dataset_2.gif)
 
-The red and blue signs displays Lidar RADAR data.
-The green one's displays the updated position after predicting and utilizing Lidar and RADAR data.
+The predicted position and velocity are displayed in right corner.
 
 ### Environment Details
 
