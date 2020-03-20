@@ -106,12 +106,12 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       double vx = ro_dot * cos(theta);
       double vy = ro_dot * sin(theta);
 
-      if (px < 0.0001){
-          px = 0.0001;
-      }
-      if (py < 0.0001){
-          py = 0.0001;
-      }
+      //if (px < 0.0001){
+      //   px = 0.0001;
+      //}
+      //if (py < 0.0001){
+       //   py = 0.0001;
+     // }
 
       ekf_.x_<< px, py, vx, vy;
     }
@@ -189,9 +189,17 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
     // TODO: Radar updates
-    ekf_.R_ = R_radar_;
-    ekf_.H_ = tools.CalculateJacobian(ekf_.x_);
-    ekf_.UpdateEKF(measurement_pack.raw_measurements_);
+
+    double ro = sqrt(ekf_.x_[0] * ekf_.x_[0] + ekf_.x_[1] * ekf_.x_[1]);
+    if (ro > 0.001){
+        ekf_.R_ = R_radar_;
+        ekf_.H_ = tools.CalculateJacobian(ekf_.x_);
+        ekf_.UpdateEKF(measurement_pack.raw_measurements_);
+    }
+    else{
+        return;
+    }
+
   } else {
 
     // TODO: Laser updates_
